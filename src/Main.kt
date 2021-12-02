@@ -1,5 +1,5 @@
-import day01.day01
+import day02.day02
 
 fun main() {
-    day01()
+    day02()
 }
