@@ -1,9 +1,8 @@
 package day03
 
-import readInput
-import java.lang.IllegalArgumentException
+import Day
 
-fun day03() {
+fun day03(): Day<Int, Int> {
     fun part1(input: List<String>): Int {
         assert(input.isNotEmpty())
         val countsOfOnes = MutableList(input[0].length) { i -> 0 }
@@ -76,13 +75,5 @@ fun day03() {
         }
     }
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("day03/Day03_test")
-    val part1Value = part1(testInput)
-    check(part1Value == 198)
-    check(part2(testInput) == 230)
-
-    val input = readInput("day03/Day03")
-    println(part1(input))
-    println(part2(input))
+    return Day(3, 198, ::part1, 230, ::part2)
 }

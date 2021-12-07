@@ -1,8 +1,8 @@
 package day06
 
-import readInput
+import Day
 
-fun day06() {
+fun day06(): Day<Long, Long> {
     fun laternFishGrowth(input: List<String>, totalDays: Int): Long {
         val initial = input[0].split(",").map(String::toInt).toMutableList()
         val agesRing: MutableList<Long> = List(7) { _ -> 0L }.toMutableList()
@@ -39,16 +39,5 @@ fun day06() {
         return laternFishGrowth(input, 256)
     }
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("day06/Day06_test")
-    val part1 = part1(testInput)
-    println("part1: $part1")
-    check(part1 == 5934L)
-    val part2 = part2(testInput)
-    println("part2: $part2")
-    check(part2 == 26984457539)
-
-    val input = readInput("day06/Day06")
-    println(part1(input))
-    println(part2(input))
+    return Day(6, 5934L, ::part1, 26984457539, ::part2)
 }

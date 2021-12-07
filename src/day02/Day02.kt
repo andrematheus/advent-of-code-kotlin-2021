@@ -1,61 +1,45 @@
 package day02
 
-import readInput
+import Day
 
-fun day02() {
-    @Deprecated("Use Position")
-    data class WrongPosition(val horizontal: Int, val depth: Int) {
-        fun forward(by: Int) = this.copy(horizontal = horizontal + by)
-        fun down(by: Int) = this.copy(depth = depth + by)
-        fun up(by: Int) = this.copy(depth = depth - by)
-
-        fun applyCommand(commandLine: String): WrongPosition {
-            val commandPair = commandLine.split(" ", limit = 2).let { Pair(it[0], it[1].toInt()) }
-            return when (commandPair.first) {
-                "forward" -> this::forward
-                "down" -> this::down
-                "up" -> this::up
-                else -> throw IllegalArgumentException()
-            }.invoke(commandPair.second)
-        }
-    }
-
-    data class Position(val aim: Int, val horizontal: Int, val depth: Int) {
-        fun forward(by: Int) = this.copy(
-            horizontal = horizontal + by,
-            depth = depth + (aim * by)
-        )
-
-        fun down(by: Int) = this.copy(aim = aim + by)
-        fun up(by: Int) = this.copy(aim = aim - by)
-
-        fun applyCommand(commandLine: String): Position {
-            val commandPair = commandLine.split(" ", limit = 2).let { Pair(it[0], it[1].toInt()) }
-            return when (commandPair.first) {
-                "forward" -> this::forward
-                "down" -> this::down
-                "up" -> this::up
-                else -> throw IllegalArgumentException()
-            }.invoke(commandPair.second)
-        }
-    }
-
+fun day02(): Day<Int, Int> {
     fun part1(input: List<String>): Int {
-        val position: WrongPosition = input.fold(WrongPosition(0, 0), WrongPosition::applyCommand)
+        data class Position(val horizontal: Int, val depth: Int)
+
+        val position = input.map { line ->
+            line.split(" ", limit = 2)
+                .let { coords -> Pair(coords[0], coords[1].toInt()) }
+        }.fold(Position(0, 0)) { (horizontal, depth), (command, by) ->
+            when (command) {
+                "forward" -> Position(horizontal + by, depth)
+                "down" -> Position(horizontal, depth + by)
+                "up" -> Position(horizontal, depth - by)
+                else -> throw IllegalArgumentException()
+            }
+        }
         return position.horizontal * position.depth
     }
 
     fun part2(input: List<String>): Int {
-        val position: Position = input.fold(Position(0, 0, 0), Position::applyCommand)
+        data class Position(val aim: Int, val horizontal: Int, val depth: Int)
+
+        val position = input.map { line ->
+            line.split(" ", limit = 2)
+                .let { coords -> Pair(coords[0], coords[1].toInt()) }
+        }.fold(Position(0, 0, 0)) { acc, (command, by) ->
+            when (command) {
+                "forward" -> acc.copy(
+                    horizontal = acc.horizontal + by,
+                    depth = acc.depth + (acc.aim * by)
+                )
+                "down" -> acc.copy(aim = acc.aim + by)
+                "up" -> acc.copy(aim = acc.aim - by)
+                else -> throw IllegalArgumentException()
+            }
+        }
+
         return position.horizontal * position.depth
     }
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("day02/Day02_test")
-    check(part1(testInput) == 150)
-    check(part2(testInput) == 900)
-
-    val input = readInput("day02/Day02")
-    println(part1(input))
-    println(part2(input))
+    return Day(2, 150, ::part1, 900, ::part2)
 }

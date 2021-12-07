@@ -1,8 +1,8 @@
 package day05
 
-import readInput
+import Day
 
-fun day05() {
+fun day05(): Day<Int, Int> {
 
     fun markPoints(
         hits: MutableMap<Pair<Int, Int>, Int>, from: Pair<Int, Int>, to: Pair<Int, Int>
@@ -48,16 +48,5 @@ fun day05() {
         return crosses(readPoints(input))
     }
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("day05/Day05_test")
-    val part1 = part1(testInput)
-    println("part1: $part1")
-    check(part1 == 5)
-    val part2 = part2(testInput)
-    println("part2: $part2")
-    check(part2 == 12)
-
-    val input = readInput("day05/Day05")
-    println(part1(input))
-    println(part2(input))
+    return Day(5, 5, ::part1, 12, ::part2)
 }

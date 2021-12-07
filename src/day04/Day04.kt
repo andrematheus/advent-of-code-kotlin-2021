@@ -1,6 +1,6 @@
 package day04
 
-import readInput
+import Day
 
 class Board(private val numbers: List<List<Int>>) {
     sealed class Group {
@@ -71,7 +71,7 @@ class Board(private val numbers: List<List<Int>>) {
     }
 }
 
-fun day04() {
+fun day04(): Day<Int, Int> {
     fun readDraws(line: String): List<Int> {
         return line
             .split(",")
@@ -128,16 +128,5 @@ fun day04() {
         return lastWinner?.score ?: 0
     }
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("day04/Day04_test")
-    val part1 = part1(testInput)
-    println("part1: $part1")
-    check(part1 == 4512)
-    val part2 = part2(testInput)
-    println("part2: $part2")
-    check(part2 == 1924)
-
-    val input = readInput("day04/Day04")
-    println(part1(input))
-    println(part2(input))
+    return Day(4, 4512, ::part1, 1924, ::part2)
 }

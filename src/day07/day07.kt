@@ -1,9 +1,9 @@
 package day07
 
-import readInput
+import Day
 import kotlin.math.abs
 
-fun day07() {
+fun day07(): Day<Int, Int> {
     fun findMinimum(min: Int, max: Int, costFn: (Int) -> Int): Int {
         var lastCost = costFn(min)
 
@@ -44,16 +44,5 @@ fun day07() {
         }
     }
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("day07/Day07_test")
-    val part1 = part1(testInput)
-    println("part1: $part1")
-    check(part1 == 37)
-    val part2 = part2(testInput)
-    println("part2: $part2")
-    check(part2 == 168)
-
-    val input = readInput("day07/Day07")
-    println(part1(input))
-    println(part2(input))
+    return Day(7, 37, ::part1, 168, ::part2)
 }
