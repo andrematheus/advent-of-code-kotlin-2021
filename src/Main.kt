@@ -6,6 +6,7 @@ import day05.day05
 import day06.day06
 import day07.day07
 import day08.day08
+import day09.day09
 
 fun main() {
     for (day in listOf<Day<*, *>>(
@@ -17,6 +18,7 @@ fun main() {
         day06(),
         day07(),
         day08(),
+        day09(),
     )) {
         day.run()
     }
