@@ -79,7 +79,6 @@ fun day10(): Day<*, *> {
             .also { if (it.size % 2 == 0) throw IllegalStateException("Something's wrong") }
             .sorted()
             .let {
-                println(it)
                 it.get(it.size / 2)
             }
     }
