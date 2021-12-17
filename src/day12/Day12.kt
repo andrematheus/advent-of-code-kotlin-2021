@@ -35,13 +35,11 @@ fun day12(): Day<*, *> {
             return if (cave.name == "end") {
                 appendedPaths
             } else {
-                cave.connectedTo.flatMap {
-                    if (!visited.contains(it) || it.isBig) {
+                cave.connectedTo
+                    .filter { !visited.contains(it) || it.isBig }
+                    .flatMap {
                         step(it, visited + cave, appendedPaths)
-                    } else {
-                        listOf()
                     }
-                }
             }
         }
 
